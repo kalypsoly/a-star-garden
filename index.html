@@ -197,11 +197,13 @@ document.body.appendChild(fly);
 
 function createShootingStar(){
 
-let star=document.createElement("div");
-star.className="shooting-star";
+let star = document.createElement("div");
+star.className = "shooting-star";
 
-star.style.top=Math.random()*40+"vh";
-star.style.left=Math.random()*40+"vw";
+/* start near the top-left area so it crosses screen */
+
+star.style.top = Math.random()*30 + "vh";
+star.style.left = Math.random()*30 + "vw";
 
 document.body.appendChild(star);
 
@@ -210,6 +212,7 @@ star.remove();
 },4000);
 
 }
+
 
 /* RANDOM SHOOTING STARS */
 
@@ -230,10 +233,11 @@ let wish=document.createElement("div");
 wish.innerText="⭐ may your wish travel safely through the stars";
 
 wish.style.position="absolute";
-wish.style.bottom="120px";
+wish.style.bottom="140px";
 wish.style.left="50%";
 wish.style.transform="translateX(-50%)";
 wish.style.fontSize="18px";
+wish.style.opacity="0.9";
 
 document.body.appendChild(wish);
 
@@ -242,6 +246,7 @@ wish.remove();
 },4000);
 
 }
+
 
 /* STAR MESSAGES */
 
