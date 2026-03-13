@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>The Quiet Star Garden</title>
+
+<style>
+
+body{
+margin:0;
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+font-family:Georgia,serif;
+background:#f4f1e8;
+color:#3f4a34;
+overflow:hidden;
+transition:background 2s;
+}
+
+/* NIGHT MODE */
+
+body.night{
+background:#0b1022;
+color:#e6ecff;
+}
+
+/* MESSAGE BOX */
+
+.box{
+background:#fffdf7;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 40px rgba(0,0,0,0.2);
+max-width:520px;
+text-align:center;
+z-index:2;
+}
+
+body.night .box{
+background:#151c33;
+}
+
+/* BUTTON */
+
+.wish{
+margin-top:20px;
+padding:10px 18px;
+border:none;
+border-radius:20px;
+background:#f6e8a6;
+font-family:Georgia,serif;
+cursor:pointer;
+font-size:16px;
+transition:0.3s;
+}
+
+.wish:hover{
+transform:scale(1.05);
+}
+
+body.night .wish{
+background:#3c4a85;
+color:white;
+}
+
+/* STARS */
+
+.star{
+position:absolute;
+width:3px;
+height:3px;
+background:white;
+border-radius:50%;
+animation:twinkle 3s infinite;
+}
+
+@keyframes twinkle{
+0%{opacity:0.2}
+50%{opacity:1}
+100%{opacity:0.2}
+}
+
+/* SHOOTING STARS */
+
+.shooting-star{
+position:absolute;
+width:120px;
+height:2px;
+background:linear-gradient(90deg,white,transparent);
+opacity:0.8;
+transform:rotate(45deg);
+animation:shoot 4s linear forwards;
+}
+
+@keyframes shoot{
+0%{transform:translate(-200px,-200px) rotate(45deg);opacity:1;}
+100%{transform:translate(800px,800px) rotate(45deg);opacity:0;}
+}
+
+/* FIREFLIES */
+
+.firefly{
+position:absolute;
+width:6px;
+height:6px;
+background:#ffd86b;
+border-radius:50%;
+box-shadow:0 0 10px #ffd86b;
+animation:float 10s infinite linear;
+}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(-120px)}
+100%{transform:translateY(0)}
+}
+
+/* MUSHROOMS */
+
+.mushroom{
+position:absolute;
+bottom:10px;
+font-size:28px;
+}
+
+.m1{left:20px}
+.m2{left:60px}
+.m3{right:40px}
+
+.small{
+margin-top:20px;
+font-size:14px;
+opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box" id="content" style="display:none;">
+<h1>⭐ a small star note for today</h1>
+
+<p id="message"></p>
+
+<button onclick="makeWish()" class="wish">⭐ make a wish</button>
+
+<div class="small">come back tomorrow 🌙</div>
+</div>
+
+<div class="mushroom m1">🍄</div>
+<div class="mushroom m2">🍄</div>
+<div class="mushroom m3">🍄</div>
+
+<script>
+
+/* PASSWORD */
+
+let password = prompt("enter the garden password 🌿");
+
+if(password !== "cosmicgarden"){
+document.body.innerHTML = "this little garden isn't meant for you.";
+}
+
+/* DAY/NIGHT MODE */
+
+const hour = new Date().getHours();
+
+if(hour >= 18 || hour <= 5){
+document.body.classList.add("night");
+}
+
+/* CREATE STARS */
+
+for(let i=0;i<90;i++){
+let star=document.createElement("div");
+star.className="star";
+star.style.top=Math.random()*100+"vh";
+star.style.left=Math.random()*100+"vw";
+star.style.animationDuration=(2+Math.random()*3)+"s";
+document.body.appendChild(star);
+}
+
+/* CREATE FIREFLIES */
+
+for(let i=0;i<12;i++){
+let fly=document.createElement("div");
+fly.className="firefly";
+fly.style.left=Math.random()*100+"vw";
+fly.style.top=Math.random()*100+"vh";
+fly.style.animationDuration=(8+Math.random()*6)+"s";
+document.body.appendChild(fly);
+}
+
+/* SHOOTING STAR */
+
+function createShootingStar(){
+
+let star=document.createElement("div");
+star.className="shooting-star";
+
+star.style.top=Math.random()*40+"vh";
+star.style.left=Math.random()*40+"vw";
+
+document.body.appendChild(star);
+
+setTimeout(()=>{
+star.remove();
+},4000);
+
+}
+
+/* RANDOM SHOOTING STARS */
+
+setInterval(()=>{
+if(Math.random()<0.5){
+createShootingStar();
+}
+},8000);
+
+/* MAKE A WISH BUTTON */
+
+function makeWish(){
+
+createShootingStar();
+
+let wish=document.createElement("div");
+
+wish.innerText="⭐ may your wish travel safely through the stars";
+
+wish.style.position="absolute";
+wish.style.bottom="120px";
+wish.style.left="50%";
+wish.style.transform="translateX(-50%)";
+wish.style.fontSize="18px";
+
+document.body.appendChild(wish);
+
+setTimeout(()=>{
+wish.remove();
+},4000);
+
+}
+
+/* STAR MESSAGES */
+
+const messages = [
+
+"You shine quietly like a distant star.",
+"The sky feels kinder with your light in it.",
+"I hope today sparkles gently for you.",
+"You brighten the world the way stars brighten the night.",
+"Even on quiet days, you still shine.",
+"I hope today feels soft and full of tiny wonders.",
+"You are someone's favorite constellation.",
+"The universe is better because you're here.",
+"You glow in ways that aren't loud but unforgettable.",
+"The night sky would feel emptier without stars like you.",
+
+"I hope today brings you peaceful starlight.",
+"You shine in ways you probably don't notice.",
+"The sky would miss your light.",
+"I hope today treats you gently.",
+"You belong among beautiful things.",
+"Even ordinary moments shine around you.",
+"I hope today gives you a calm smile.",
+"You carry a gentle kind of light.",
+"The stars would admire your glow.",
+"I hope today feels warm and safe.",
+
+"You are a quiet constellation in someone's life.",
+"The universe placed you here carefully.",
+"I hope today sparkles a little.",
+"You bring peaceful light into the world.",
+"The world feels softer with you in it.",
+"I hope something small makes you smile today.",
+"You shine without trying.",
+"The sky holds many stars but you are special.",
+"I hope today feels peaceful.",
+"You are a lovely part of the universe.",
+
+"You glow gently in this world.",
+"The stars would be proud of you.",
+"I hope today brings quiet happiness.",
+"You are a peaceful constellation.",
+"The universe feels calmer with your presence.",
+"I hope today treats you kindly.",
+"You brighten ordinary moments.",
+"I hope today brings calm joy.",
+"You make the world lighter.",
+"I hope today feels soft.",
+
+"You bring warmth like distant starlight.",
+"I hope something lovely happens today.",
+"The universe feels better with you in it.",
+"You shine naturally.",
+"I hope today surprises you kindly.",
+"You are a quiet kind of magic.",
+"The night sky would keep you forever.",
+"I hope today feels gentle.",
+"You are one of the universe's beautiful lights.",
+"I hope today gives you peace.",
+
+"The stars would write your name in light.",
+"You are a quiet miracle of the universe.",
+"I hope today feels calm and kind.",
+"You glow in your own beautiful way.",
+"The sky would be darker without you.",
+"I hope today brings a small happiness.",
+"You are softer than moonlight and brighter than stars.",
+"The universe feels balanced with you here.",
+"I hope today feels like a warm evening sky.",
+"You are part of something beautifully infinite.",
+
+"The stars and the universe are glad you exist.",
+"I hope today feels peaceful and light.",
+"You shine like starlight on quiet water.",
+"The world is brighter with you in it.",
+"I hope today brings gentle surprises.",
+"You are a constellation someone looks for.",
+"The sky would be proud to hold your light.",
+"I hope today gives you calm joy.",
+"You carry quiet magic.",
+"The universe is lucky to have you.",
+
+"You glow softly like stars behind clouds.",
+"I hope today treats you gently.",
+"You are one of the beautiful lights in the sky.",
+"The stars would admire your calm glow.",
+"I hope today brings peaceful moments.",
+"You shine even when you don't try.",
+"The sky would whisper good things about you.",
+"I hope today feels warm and kind.",
+"You bring quiet beauty to the world.",
+"The universe feels softer with you here."
+
+];
+
+
+/* DAY OF YEAR */
+
+const today=new Date();
+const start=new Date(today.getFullYear(),0,0);
+const diff=today-start;
+const oneDay=1000*60*60*24;
+const day=Math.floor(diff/oneDay);
+
+/* SHOW MESSAGE */
+
+const message=messages[(day-1)%messages.length];
+
+document.getElementById("message").innerText=message;
+document.getElementById("content").style.display="block";
+
+</script>
+
+</body>
+</html>
